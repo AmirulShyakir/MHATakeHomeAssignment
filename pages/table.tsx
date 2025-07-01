@@ -1,5 +1,5 @@
 import Skeleton from "@/components/layout/Skeleton";
-import TableMainContent from "@/components/table/TableMainContent";
+import WorkoutMainContent from "@/components/workout/WorkoutMainContent";
 import Head from "next/head";
 
 export default function Table() {
@@ -7,9 +7,9 @@ export default function Table() {
 		<main>
 			<Skeleton>
 				<Head>
-					<title>Table App</title>
+					<title>Workout Tracker App</title>
 				</Head>
-				<TableMainContent/>
+				<WorkoutMainContent/>
 			</Skeleton>
 		</main>
 	);

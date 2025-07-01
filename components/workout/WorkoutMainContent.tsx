@@ -1,5 +1,7 @@
-import { Typography, Table, Flex, type TableProps, Button} from "antd"
-import { Workout, workouts } from "../stores/workoutDataStore";
+import { Typography, Table, Flex, type TableProps, Button, Modal} from "antd"
+import { type Workout, workouts } from "../stores/workoutDataStore";
+import React from "react";
+import AddNewWorkoutModal from "./AddNewWorkoutModal";
 
 const columns: TableProps<Workout>["columns"] = [
   {
@@ -29,9 +31,15 @@ const columns: TableProps<Workout>["columns"] = [
   },
 ];
 
-export default function TodoMainContent() {
-  function handleAddNewWorkout(event: MouseEvent<HTMLElement, MouseEvent>): void {
-    throw new Error("Function not implemented.");
+export default function WorkoutMainContent() {
+  const [addNewWorkoutModalVisible, setAddNewWorkoutModalVisible] = React.useState<boolean>(false);
+
+  const handleOpenModal = () => {
+    setAddNewWorkoutModalVisible(true);
+    console.log("opening modal");
+  }
+  const handleCloseModal = () => {
+    setAddNewWorkoutModalVisible(false);
   }
 
   return (
@@ -40,13 +48,17 @@ export default function TodoMainContent() {
 				<Typography.Title level={2} style={{ marginBottom: 0 }}>
 					Workouts
 				</Typography.Title>
-				<Button type="primary" onClick={handleAddNewWorkout}>
+				<Button type="primary" onClick={handleOpenModal}>
 					Add Workout
 				</Button>
 			</Flex>
       <Table<Workout>
        dataSource={workouts} 
        columns={columns} 
+      />
+      <AddNewWorkoutModal 
+        visible={addNewWorkoutModalVisible}
+        closeModal={handleCloseModal}
       />
     </Flex>
   )
