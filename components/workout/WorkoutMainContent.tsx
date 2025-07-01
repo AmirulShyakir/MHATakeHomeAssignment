@@ -1,5 +1,5 @@
 import { Typography, Table, Flex, type TableProps, Button, Modal} from "antd"
-import { type Workout, workouts } from "../stores/workoutDataStore";
+import { type Workout, workouts as initialWorkouts} from "../stores/workoutDataStore";
 import React from "react";
 import AddNewWorkoutModal from "./AddNewWorkoutModal";
 
@@ -33,6 +33,16 @@ const columns: TableProps<Workout>["columns"] = [
 
 export default function WorkoutMainContent() {
   const [addNewWorkoutModalVisible, setAddNewWorkoutModalVisible] = React.useState<boolean>(false);
+  const [workouts, setWorkouts] = React.useState<Workout[]>([]);
+
+  React.useEffect(() => {
+    fetchWorkouts();
+  }, []);
+
+  const fetchWorkouts = () => {
+    // simulate fetching data from API
+    setWorkouts(initialWorkouts);
+  }
 
   const handleOpenModal = () => {
     setAddNewWorkoutModalVisible(true);
@@ -40,6 +50,10 @@ export default function WorkoutMainContent() {
   }
   const handleCloseModal = () => {
     setAddNewWorkoutModalVisible(false);
+  }
+
+  const handleAddWorkout = (newWorkout: Workout) => {
+    setWorkouts([...workouts, newWorkout]);
   }
 
   return (
@@ -59,6 +73,7 @@ export default function WorkoutMainContent() {
       <AddNewWorkoutModal 
         visible={addNewWorkoutModalVisible}
         closeModal={handleCloseModal}
+        onAddWorkout={handleAddWorkout}
       />
     </Flex>
   )
