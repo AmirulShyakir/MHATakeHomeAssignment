@@ -1,7 +1,8 @@
-import { Typography, Table, Flex, type TableProps, Button, Modal} from "antd"
+import { Typography, Table, Flex, type TableProps, Button, Modal, Space, Switch} from "antd"
 import { type Workout, workouts as initialWorkouts} from "../stores/workoutDataStore";
-import React from "react";
+import React, { use } from "react";
 import AddNewWorkoutModal from "./AddNewWorkoutModal";
+import { useLightDarkModeState } from "../stores/lightDarkModeState";
 
 const columns: TableProps<Workout>["columns"] = [
   {
@@ -32,6 +33,8 @@ const columns: TableProps<Workout>["columns"] = [
 ];
 
 export default function WorkoutMainContent() {
+  const isDarkMode = useLightDarkModeState((state) => state.isDarkMode);
+  const toggleDarkMode = useLightDarkModeState((state) => state.toggleDarkMode);
   const [addNewWorkoutModalVisible, setAddNewWorkoutModalVisible] = React.useState<boolean>(false);
   const [workouts, setWorkouts] = React.useState<Workout[]>([]);
 
@@ -59,12 +62,23 @@ export default function WorkoutMainContent() {
   return (
     <Flex vertical gap={24}>
       <Flex style={{ width: "100%" }} justify="space-between" align="center">
-				<Typography.Title level={2} style={{ marginBottom: 0 }}>
+        <Space size={"large"}>
+          <Typography.Title level={2} style={{ marginBottom: 0 }}>
 					Workouts
 				</Typography.Title>
-				<Button type="primary" onClick={handleOpenModal}>
-					Add Workout
-				</Button>
+        <Button type="primary" onClick={handleOpenModal}>
+					  Add Workout
+        </Button>
+        </Space>
+				
+        <Space>
+          <Space>
+            <Typography.Text>Light</Typography.Text>
+            <Switch checked={isDarkMode} onChange={toggleDarkMode}/>
+            <Typography.Text>Dark</Typography.Text>
+          </Space>
+          
+        </Space>
 			</Flex>
       <Table<Workout>
        dataSource={workouts} 
