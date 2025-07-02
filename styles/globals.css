@@ -2,7 +2,10 @@
 	--background: #ffffff;
 	--foreground: #171717;
 	--primary: #0070f3;
+	--text: #171717;
+	--textDarkMode: #ffffff;
 	--secondary: #1a1a1a;
+	--tableCellDarkMode : #343434;
 	font-family: "Inter", "Inter Variable", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -44,3 +47,22 @@ a {
 		color-scheme: dark;
 	}
 }
+
+/* workaround for antd cell dark mode (no design token exist) */
+body.dark .ant-table-cell {
+  background-color: var(--tableCellDarkMode);
+  color: var(--textDarkMode);
+}
+
+body.light .ant-table-cell {
+  background-color: #fff;
+  color: var(--text);
+}
+
+/* theming for Typography without design token - only affect those in card as it has the class card-typography */
+body.dark .card-typography :where(.ant-typography) {
+  color: var(--textDarkMode); 
+}
+
+body.light .card-typography :where(.ant-typography) {
+  color: var(--text); 
