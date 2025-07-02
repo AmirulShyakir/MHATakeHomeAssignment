@@ -12,17 +12,17 @@ export default function ExerciseCard(props: Readonly<ExerciseCardProps>) {
   return (
     <div className="card-typography">
       <Card key={w.key} size="small">
-      <Flex justify="space-between">
-        <Typography.Paragraph strong>Exercise: {w.exercise}</Typography.Paragraph>
-        <Typography.Paragraph>Date: {w.date}</Typography.Paragraph>
-        
-      </Flex>
-      <Space split={<Divider type="vertical" />}>
-        <Typography.Paragraph>Sets: {w.sets}</Typography.Paragraph>
-        <Typography.Paragraph>Reps: {w.reps}</Typography.Paragraph>
-        <Typography.Paragraph>Weight: {w.weight} kg</Typography.Paragraph>
-      </Space>
-    </Card>
+        <Flex justify="space-between">
+          <Typography.Paragraph strong>{w.exercise}</Typography.Paragraph>
+          <Typography.Paragraph>Date: {w.date}</Typography.Paragraph>
+          
+        </Flex>
+        <Space split={<Divider type="vertical" />}>
+          <Typography.Paragraph>Sets: {w.sets}</Typography.Paragraph>
+          <Typography.Paragraph>Reps: {w.reps}</Typography.Paragraph>
+          <Typography.Paragraph>Weight: {w.weight} kg</Typography.Paragraph>
+        </Space>
+      </Card>
     </div>
     
   )

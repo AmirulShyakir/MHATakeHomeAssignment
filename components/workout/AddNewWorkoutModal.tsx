@@ -1,7 +1,10 @@
-import { Form, Modal, Input, InputNumber } from "antd";
+import { Form, Modal, Input, InputNumber, Select } from "antd";
 import { Workout } from "../stores/workoutDataStore";
 import { formatDate } from "@/utils/helpers";
 import { useMessageApi } from "@/pages/hooks/useMessageApi";
+import axios from "axios";
+import React from "react";
+import { fetchTopExercises } from "@/services/fetchWorkouts";
 
 interface AddNewWorkoutModalProps {
   visible: boolean;
@@ -13,6 +16,15 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
   const [form] = Form.useForm();
   // custom hook to handle feedback messages for improved UI
   const { contextHolder, showSuccess, showError } = useMessageApi();
+  const [exerciseOptions, setExerciseOptions] = React.useState<string[]>([]);
+
+  // fetches 10 exercises from external API
+  React.useEffect(() => {
+    fetchTopExercises(10).then((res) => {
+      console.log("Fetched exercises:", res);
+      setExerciseOptions(res);
+    });
+  }, []);
 
   const handleOk = async () => {
     try {
@@ -35,7 +47,7 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
       showSuccess("Successfully added new workout");
     } catch (error) {
       console.log(error);
-      showError("Failed to add new workout" + error);
+      showError("Failed to add new workout");
     }
   };
 
@@ -66,16 +78,14 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
           rules={[
             {
               required: true,
-              message: "Please input exercise",
-            },
-            {
-              type: 'string',
-              pattern: /^[A-Za-z ]+$/, // only allow alpha, no special characters
-              message: 'Only letters and spaces allowed',
+              message: "Please select an exercise",
             },
           ]}
         >
-          <Input placeholder="Enter exercise name" showCount maxLength={20} style={{ width: '100%' }}/>
+          <Select
+            placeholder="Choose an exercise"
+            options={exerciseOptions.map(name => ({ value: name, label: name }))}
+          />
         </Form.Item>
         <Form.Item
           label="Sets"
@@ -92,7 +102,7 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
             },
           ]}
         >
-          <InputNumber min={1} defaultValue={1} style={{ width: '100%' }}/>
+          <InputNumber min={1} style={{ width: '100%' }}/>
         </Form.Item>
         <Form.Item
           label="Reps"
@@ -109,7 +119,7 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
             },
           ]}
         >
-          <InputNumber min={1} defaultValue={1} style={{ width: '100%' }}/>
+          <InputNumber min={1} style={{ width: '100%' }}/>
         </Form.Item>
         <Form.Item
           label="Weight"
