@@ -1,11 +1,10 @@
-import { Typography, Table, Flex, type TableProps, Button, Modal, Space, Switch, Card, Divider} from "antd"
+import { Typography, Table, Flex, type TableProps, Space} from "antd"
 import { type Workout, workouts as initialWorkouts} from "../stores/workoutDataStore";
-import React, { use } from "react";
+import React from "react";
 import AddNewWorkoutModal from "./AddNewWorkoutModal";
 import { useLightDarkModeState } from "../stores/lightDarkModeState";
 import { isMobile } from "@/utils/helpers";
 import ExerciseCard from "./ExerciseCard";
-import WorkoutTableActions from "./TableActions";
 import TableActions from "./TableActions";
 
 const columns: TableProps<Workout>["columns"] = [

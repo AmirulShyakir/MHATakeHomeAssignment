@@ -1,8 +1,7 @@
-import { Form, Modal, Input, InputNumber, Select } from "antd";
+import { Form, Modal, InputNumber, Select } from "antd";
 import { Workout } from "../stores/workoutDataStore";
 import { formatDate } from "@/utils/helpers";
 import { useMessageApi } from "@/pages/hooks/useMessageApi";
-import axios from "axios";
 import React from "react";
 import { fetchTopExercises } from "@/services/fetchWorkouts";
 
