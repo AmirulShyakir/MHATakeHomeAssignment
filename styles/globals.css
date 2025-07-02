@@ -1,21 +1,12 @@
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
+	--background: #171717;
+	--foreground: #ffffff;
 	--primary: #0070f3;
 	--text: #171717;
 	--textDarkMode: #ffffff;
 	--secondary: #1a1a1a;
 	--tableCellDarkMode : #343434;
 	font-family: "Inter", "Inter Variable", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-		--primary: #0070f3;
-		--secondary: #1a1a1a;
-	}
 }
 
 html,
@@ -55,7 +46,7 @@ body.dark .ant-table-cell {
 }
 
 body.light .ant-table-cell {
-  background-color: #fff;
+  background-color : var(--foreground);
   color: var(--text);
 }
 

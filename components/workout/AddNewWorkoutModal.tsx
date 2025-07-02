@@ -1,6 +1,7 @@
 import { Form, Modal, Input, InputNumber } from "antd";
 import { Workout } from "../stores/workoutDataStore";
 import { formatDate } from "@/utils/helpers";
+import { useMessageApi } from "@/pages/hooks/useMessageApi";
 
 interface AddNewWorkoutModalProps {
   visible: boolean;
@@ -10,6 +11,8 @@ interface AddNewWorkoutModalProps {
 export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalProps>) {
   const { visible, closeModal, onAddWorkout } = props;
   const [form] = Form.useForm();
+  // custom hook to handle feedback messages for improved UI
+  const { contextHolder, showSuccess, showError } = useMessageApi();
 
   const handleOk = async () => {
     try {
@@ -18,6 +21,7 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
       
       // create new workout object with interface for type safety
       const newWorkout: Workout = {
+        key: Date.now().toString(), // timestamp as unique key
         date: formatDate(new Date()),
         exercise,
         sets,
@@ -28,8 +32,10 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
       // simulate the API call, in this case just inform the parent to add the new workout to the list for display
       onAddWorkout(newWorkout);
       resetFormAndCloseModal()
+      showSuccess("Successfully added new workout");
     } catch (error) {
       console.log(error);
+      showError("Failed to add new workout" + error);
     }
   };
 
@@ -47,6 +53,7 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
       onCancel={resetFormAndCloseModal}
       width={300}
     >
+       {contextHolder}
       <Form 
         form={form} 
         layout="vertical" 

@@ -31,12 +31,11 @@ export default function App({ Component, pageProps }: AppProps) {
 						headerBg: isDarkMode ? 'var(--secondary)' : 'var(--primary)', 
 						headerColor: isDarkMode ? 'var(--textDarkMode)' : 'var(--text)',
 						headerSplitColor: isDarkMode ? 'var(--textDarkMode)' : 'var(--text)',
-						bodySortBg: isDarkMode ? 'var(--primary)' : '#fff',
 						rowHoverBg: isDarkMode ? '#2a2a2a' : '#f5f5f5',
 						colorText: isDarkMode ? 'var(--textDarkMode)' : 'var(--text)'
 					},
 					Card: {
-						colorBgContainer: isDarkMode ? 'var(--secondary)' : 'var(--foreground)',
+						colorBgContainer: isDarkMode ? 'var(--tableCellDarkMode)' : 'var(--foreground)',
 						colorText: isDarkMode ? 'var(--textDarkMode)' : 'var(--text)'
 					}
 				}

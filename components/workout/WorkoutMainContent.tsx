@@ -70,7 +70,7 @@ export default function WorkoutMainContent() {
       <Typography.Title level={2} style={{ marginBottom: 0 }}>
         Workouts
       </Typography.Title>
-      {/* component so that it can be reused */}
+      {/* component so that it can be reused in other pages that may have tables */}
       <TableActions 
         isDarkMode={isDarkMode}
         toggleDarkMode={toggleDarkMode}
