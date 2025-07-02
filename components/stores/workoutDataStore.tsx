@@ -1,4 +1,6 @@
+// interface for data type ensures consistency and type safety aacross application
 export interface Workout {
+  key: string;
   date: string;
   exercise: string;
   sets: number;
@@ -6,6 +8,7 @@ export interface Workout {
   weight: number;
 }
 
+// stub data
 export const workouts = [
   {
     key: '1',

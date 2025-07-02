@@ -18,7 +18,9 @@ export default function Skeleton({ children }: Readonly<{ children?: React.React
 	const { Content, Header } = Layout;
 
 	return (
-		<Layout style={{ height: "100vh" }}>
+		// min height ensures the content is always filling 100% even if there isnt enough content (avoiding diff backgrounds)
+		// padding bottom at skeleton level ensures the content isnt pushed all the way down
+		<Layout style={{ minHeight: '100vh', paddingBottom: 40 }}>
 			<Header style={headerStyle}>
 				<Typography.Title level={3} style={{ margin: 0 }}>Workout Tracker App</Typography.Title>
 			</Header>

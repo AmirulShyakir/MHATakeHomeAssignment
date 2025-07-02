@@ -1,8 +1,12 @@
-import { Typography, Table, Flex, type TableProps, Button, Modal, Space, Switch} from "antd"
+import { Typography, Table, Flex, type TableProps, Button, Modal, Space, Switch, Card, Divider} from "antd"
 import { type Workout, workouts as initialWorkouts} from "../stores/workoutDataStore";
 import React, { use } from "react";
 import AddNewWorkoutModal from "./AddNewWorkoutModal";
 import { useLightDarkModeState } from "../stores/lightDarkModeState";
+import { isMobile } from "@/utils/helpers";
+import ExerciseCard from "./ExerciseCard";
+import WorkoutTableActions from "./TableActions";
+import TableActions from "./TableActions";
 
 const columns: TableProps<Workout>["columns"] = [
   {
@@ -38,6 +42,8 @@ export default function WorkoutMainContent() {
   const [addNewWorkoutModalVisible, setAddNewWorkoutModalVisible] = React.useState<boolean>(false);
   const [workouts, setWorkouts] = React.useState<Workout[]>([]);
 
+  const mobile = isMobile();
+
   React.useEffect(() => {
     fetchWorkouts();
   }, []);
@@ -61,29 +67,25 @@ export default function WorkoutMainContent() {
 
   return (
     <Flex vertical gap={24}>
-      <Flex style={{ width: "100%" }} justify="space-between" align="center">
-        <Space size={"large"}>
-          <Typography.Title level={2} style={{ marginBottom: 0 }}>
-					Workouts
-				</Typography.Title>
-        <Button type="primary" onClick={handleOpenModal}>
-					  Add Workout
-        </Button>
-        </Space>
-				
-        <Space>
-          <Space>
-            <Typography.Text>Light</Typography.Text>
-            <Switch checked={isDarkMode} onChange={toggleDarkMode}/>
-            <Typography.Text>Dark</Typography.Text>
-          </Space>
-          
-        </Space>
-			</Flex>
-      <Table<Workout>
-       dataSource={workouts} 
-       columns={columns} 
+      <Typography.Title level={2} style={{ marginBottom: 0 }}>
+        Workouts
+      </Typography.Title>
+      {/* component so that it can be reused */}
+      <TableActions 
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+        handleOpenModal={handleOpenModal}
       />
+      {/* ternary used instead of logical && since a distinct boolean state is used to render only two components */}
+      {mobile ? (
+        <Space direction="vertical" style={{ width: '100%' }}>
+          {workouts.map((w) => (
+            <ExerciseCard key={w.key} w={w} />
+          ))}
+        </Space>
+      ) : (
+        <Table<Workout> dataSource={workouts} columns={columns} />
+      )}
       <AddNewWorkoutModal 
         visible={addNewWorkoutModalVisible}
         closeModal={handleCloseModal}

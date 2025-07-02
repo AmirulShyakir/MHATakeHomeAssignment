@@ -45,8 +45,14 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
       open={visible}
       onOk={handleOk}
       onCancel={resetFormAndCloseModal}
+      width={300}
     >
-      <Form form={form} layout="vertical" initialValues={{ sets: 1, reps: 1, weight: 1 }}>
+      <Form 
+        form={form} 
+        layout="vertical" 
+        initialValues={{ sets: 1, reps: 1, weight: 1 }}
+        style={{ display: 'flex', flexDirection: 'column'}}
+      >
         <Form.Item
           label="Exercise"
           name="exercise"
@@ -62,7 +68,7 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
             },
           ]}
         >
-          <Input placeholder="Enter exercise name" showCount maxLength={20}/>
+          <Input placeholder="Enter exercise name" showCount maxLength={20} style={{ width: '100%' }}/>
         </Form.Item>
         <Form.Item
           label="Sets"
@@ -79,7 +85,7 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
             },
           ]}
         >
-          <InputNumber min={1} defaultValue={1}/>
+          <InputNumber min={1} defaultValue={1} style={{ width: '100%' }}/>
         </Form.Item>
         <Form.Item
           label="Reps"
@@ -96,7 +102,7 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
             },
           ]}
         >
-          <InputNumber min={1} defaultValue={1}/>
+          <InputNumber min={1} defaultValue={1} style={{ width: '100%' }}/>
         </Form.Item>
         <Form.Item
           label="Weight"
@@ -108,13 +114,14 @@ export default function AddNewWorkoutModal(props: Readonly<AddNewWorkoutModalPro
             },
             {
               type: 'number',
+              pattern: /^[0-9]+(\.[0-9]+)?$/, // allow only numbers and decimals
               min: 0.25,
               max: 500,
               message: 'Weight must be between 0.25kg and 500kg',
             },
           ]} 
         >
-          <InputNumber min={0.25} max={500}  step={0.25} addonAfter="kg"/> 
+          <InputNumber min={0.25} max={500}  step={0.25} addonAfter="kg" style={{ width: '100%' }}/> 
         </Form.Item>
       </Form>
     </Modal>
