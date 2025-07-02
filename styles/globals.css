@@ -57,3 +57,4 @@ body.dark .card-typography :where(.ant-typography) {
 
 body.light .card-typography :where(.ant-typography) {
   color: var(--text); 
+}
